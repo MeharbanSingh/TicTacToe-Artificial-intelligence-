@@ -748,9 +748,9 @@ humanButton.y = d.contentHeight
            
 		   
          
-		 if(bd[1][7]== O and  bd[2][7] == O and bd[3][7]== 0) then -- COL 1
-		  bd[3][7]= O
-		  comprow = 3
+		if(bd[1][7]== O and  bd[2][7] == O and bd[3][7]== 0) then -- COL 1
+		 bd[3][7]= O
+		 comprow = 3
 		elseif(bd[4][7]== O and  bd[5][7] == O and bd[6][7]== 0) then
 		 bd[6][7] = O
 		 comprow = 6
@@ -1028,29 +1028,55 @@ humanButton.y = d.contentHeight
 --- check for winner
 checkForWinner = function( turn )
 
-	local bd = board
-	 
+	 local bd = board
+	 row1,row2,row3,coln1,coln2,coln3,dgn1,dgn2=0,0,0,0,0,0,0,0
 
-	if(bd[1][7]== turn and  bd[2][7] == turn and bd[3][7]== turn) then -- COL 1
-		return true
-		elseif(bd[4][7]== turn and  bd[5][7] == turn and bd[6][7]== turn) then
-		return true
-		elseif(bd[7][7]== turn and  bd[8][7] == turn and bd[9][7]== turn) then
-		return true
-		elseif(bd[1][7]== turn and  bd[4][7] == turn and bd[7][7]== turn) then
-		return true
-		elseif(bd[2][7]== turn and  bd[5][7] == turn and bd[8][7]== turn) then
-		return true
-		elseif(bd[3][7]== turn and  bd[6][7] == turn and bd[9][7]== turn) then
-		return true
-		elseif(bd[1][7]== turn and  bd[5][7] == turn and bd[9][7]== turn) then
-		return true
-		elseif(bd[3][7]== turn and  bd[5][7] == turn and bd[7][7]== turn) then
-		return true
-		end 
-
-	return false
-end
+	
+     for i = 1,3 do
+	    
+	          if(bd[i][7]==turn) then
+			  row1=row1+1
+			  elseif(bd[i+3][7]==turn) then
+			  row2=row2+1
+			  elseif(bd[i+6][7]==turn) then
+			  row3=row3+1
+			  end
+	   end 
+	   for j = 1,9,3 do
+	    
+	          if(bd[j][7]==turn) then
+			  coln1=coln1+1
+			  elseif(bd[j+1][7]==turn) then
+			  coln2=coln2+1
+			  elseif(bd[j+2][7]==turn) then
+			  coln3=coln3+1
+			  end
+	   end 
+	   
+	    for k = 1,9,4 do
+	    
+	          if(bd[k][7]==turn) then
+			  dgn1=dgn1+1
+			  
+			  end
+	   end 
+	   
+	    for l = 3,7,2 do
+	    
+	       if(bd[l][7]==turn) then
+			  dgn2=dgn2+1 
+			  
+			end
+	   end 
+	   
+	   if(row1==3 or row2==3 or row3==3 or coln1==3 or coln2==3 or coln3==3 or dgn1==3 or dgn2==3) then 
+	     return true
+	   else
+	     return false
+	   end
+	   
+	
+  end
 
   local function winOrDraw()
 
